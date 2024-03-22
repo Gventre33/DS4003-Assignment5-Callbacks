@@ -3,10 +3,6 @@ import pandas as pd
 import plotly.express as px
 from dash import Dash, dcc, html, Input, Output, callback
 
-stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css'] # load the CSS stylesheet
-
-app = Dash(__name__, external_stylesheets=stylesheets) # initialize the app
-
 # use pandas to read in data
 df = pd.read_csv("gdp_pcap.csv")
 
@@ -31,6 +27,11 @@ def value_to_float(x):
 
 gdp_long['gdp'] = gdp_long['gdp'].apply(value_to_float)
 
+stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css'] # load the CSS stylesheet
+
+app = Dash(__name__, external_stylesheets=stylesheets) # initialize the app
+
+server = app.server
 
 #Define Layout
 app.layout = html.Div([
@@ -105,4 +106,4 @@ def update_figure(selected_countries,selected_years):
 
 # run app
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run_server(debug=True)
